@@ -1,0 +1,5 @@
+<resources>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="login_url"><![CDATA[https://shikimori.one/oauth/authorize?client_id=B9zRPvvEHzWTY6NU9HK-Zm-OqOnNAGd0xUGTqX92hqg&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code&scope=user_rates+comments+topics]]></string>
+</resources>

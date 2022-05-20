@@ -1,0 +1,10 @@
+package com.stmihan.nav_utils
+
+import android.os.Bundle
+import androidx.navigation.NavOptions
+
+data class NavCommand (
+    val target: NavType,
+    var args: Bundle? = null,
+    val navOptions: NavOptions? = null
+)
