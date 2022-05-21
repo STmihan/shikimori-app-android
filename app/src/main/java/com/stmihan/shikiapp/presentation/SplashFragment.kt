@@ -2,15 +2,14 @@ package com.stmihan.shikiapp.presentation
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.stmihan.core.DeepLinks
 import com.stmihan.nav_utils.NavCommand
 import com.stmihan.nav_utils.NavType
 import com.stmihan.nav_utils.navigate
-import com.stmihan.shikiapp.R
 import com.stmihan.shikiapp.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
