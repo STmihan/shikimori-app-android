@@ -1,22 +1,25 @@
 package com.stmihan.feature_login.presentation
 
-import android.content.SharedPreferences
+import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import com.stmihan.core.Constants
+import com.stmihan.core.DeepLinks
 import com.stmihan.feature_login.R
 import com.stmihan.feature_login.databinding.FragmentWebLoginBinding
+import com.stmihan.nav_utils.NavCommand
+import com.stmihan.nav_utils.NavType
+import com.stmihan.nav_utils.navigate
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class WebLoginFragment(
-    private val sharedPreferences: SharedPreferences
-) : Fragment() {
+class WebLoginFragment : Fragment() {
     private var _binding: FragmentWebLoginBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: WebLoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,31 +35,25 @@ class WebLoginFragment(
         _binding = null
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val createClient = createClient()
+        val createClient = viewModel.createClient { callback() }
         binding.wbLoginView.webViewClient = createClient
         binding.wbLoginView.loadUrl(getString(R.string.login_url))
-
+        binding.wbLoginView.settings.javaScriptEnabled = true
+        binding.wbLoginView.settings.javaScriptCanOpenWindowsAutomatically = true
     }
 
-    private fun createClient(): WebViewClient {
-        return object : WebViewClient() {
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                if (url != null) {
-                    if ("/oauth/authorize/" !in url) return
-                    val token = url.split("/").last()
-                    saveToken(token)
-                }
-            }
-        }
-    }
-
-    private fun saveToken(token: String) {
-        sharedPreferences
-            .edit()
-            .putString(Constants.SP_AUTH_KEY, token)
-            .apply()
+    private fun callback() {
+        navigate(
+            NavCommand(
+                NavType.DeepLink(
+                    url = Uri.parse(DeepLinks.MAIN),
+                    isModal = false,
+                    isSingleTop = true
+                )
+            )
+        )
     }
 }

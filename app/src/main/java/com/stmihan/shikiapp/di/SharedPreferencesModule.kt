@@ -7,11 +7,11 @@ import com.stmihan.core.Constants
 import org.koin.dsl.module
 
 val sharedPreferencesModule = module {
-    single { defineSharedPreferences(
+    single { provideSharedPreferences(
         application = get()
     ) }
 }
 
-fun defineSharedPreferences(application: Application): SharedPreferences {
+fun provideSharedPreferences(application: Application): SharedPreferences {
     return application.getSharedPreferences(Constants.SP_APP_KEY, Context.MODE_PRIVATE)
 }
