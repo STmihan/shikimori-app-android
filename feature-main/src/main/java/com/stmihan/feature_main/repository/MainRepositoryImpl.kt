@@ -18,7 +18,6 @@ class MainRepositoryImpl(
             if (response.isSuccessful) {
                 return response.body()?.toUser()
             } else {
-                Log.e("RESPONSE_ERROR", response.errorBody().toString())
                 return null
             }
         }

@@ -13,22 +13,9 @@ class SplashRepositoryImpl(
         try {
             val token = getAccessTokenUseCase.invoke()
             val response = whoAmIApi.getMe(token)
-            response?.let {
-                return if (response.isSuccessful) {
-                    if (response.body() != null) {
-                        Log.d("USER", response.body().toString())
-                        true
-                    } else {
-                        false
-                    }
-                } else {
-                    Log.e("RESPONSE_ERROR", response.errorBody().toString())
-                    false
-                }
-            }
+            response?.let { return if (response.isSuccessful) response.body() != null else false }
             return false
         } catch (e: Exception) {
-            Log.e("ERROR", e.message.toString())
             return false
         }
     }

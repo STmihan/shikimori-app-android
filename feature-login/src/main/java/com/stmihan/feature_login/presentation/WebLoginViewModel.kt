@@ -1,5 +1,6 @@
 package com.stmihan.feature_login.presentation
 
+import android.graphics.Bitmap
 import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -12,8 +13,8 @@ class WebLoginViewModel(
 
     fun createClient(callback: () -> Unit): WebViewClient {
         return object : WebViewClient() {
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
                 if (url != null) {
                     if ("/oauth/authorize/" !in url) return
                     val token = url.split("/").last()
@@ -25,7 +26,6 @@ class WebLoginViewModel(
     }
 
     private fun saveKey(key: String) {
-        Log.d("KEY", key)
         saveAuthKeyUseCase.invoke(key)
     }
 }

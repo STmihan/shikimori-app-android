@@ -49,7 +49,6 @@ class AuthRepositoryImpl(
                 return response.body()?.access_token
             }
         } catch (e: Exception) {
-            Log.e("ERROR", "AUTH_ERROR ${e.message}")
             return null
         }
     }
@@ -78,7 +77,6 @@ class AuthRepositoryImpl(
                 return codeResponse.body()?.access_token
             }
         } catch (e: Exception) {
-            Log.e("ERROR", "AUTH_ERROR ${e.message}")
             return null
         }
     }
