@@ -11,11 +11,14 @@ import com.stmihan.nav_utils.NavCommand
 import com.stmihan.nav_utils.NavType
 import com.stmihan.nav_utils.navigate
 import com.stmihan.shikiapp.databinding.FragmentSplashBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashFragment : Fragment() {
 
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: SplashViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,14 +36,26 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigate(
-            NavCommand(
-                NavType.DeepLink(
-                    url = Uri.parse(DeepLinks.LOGIN),
-                    isModal = false,
-                    isSingleTop = true
+        viewModel.loggedIn.observe(viewLifecycleOwner) {
+            if (it) navigate(
+                NavCommand(
+                    NavType.DeepLink(
+                        url = Uri.parse(DeepLinks.MAIN),
+                        isModal = false,
+                        isSingleTop = true
+                    )
+                )
+            ) else navigate(
+                NavCommand(
+                    NavType.DeepLink(
+                        url = Uri.parse(DeepLinks.LOGIN),
+                        isModal = false,
+                        isSingleTop = true
+                    )
                 )
             )
-        )
+        }
+
+        viewModel.tryAuth()
     }
 }

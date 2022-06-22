@@ -10,7 +10,4 @@ object Constants {
 
     const val CLIENT_ID = "B9zRPvvEHzWTY6NU9HK-Zm-OqOnNAGd0xUGTqX92hqg"
     const val CLIENT_SECRET = "ObbyUfoQsEIFIlThCZzfNaWFEm2y6GTcYACzRf9gISs"
-
-    const val GRANT_TYPE_LOGIN = "authorization_code"
-    const val GRANT_TYPE_REFRESH = "refresh_token"
 }

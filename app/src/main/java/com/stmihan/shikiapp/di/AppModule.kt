@@ -2,7 +2,7 @@ package com.stmihan.shikiapp.di
 
 val appModule = listOf(
     sharedPreferencesModule,
-    networkModule,
+    apiModule,
     coreFeatureModule,
     splashFeatureModule,
     loginFeatureModule,
